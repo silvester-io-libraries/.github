@@ -1,0 +1,20 @@
+## Local
+`dotnet nuget add source "https://nuget.pkg.github.com/silvester-io-libraries/index.json" --name "silvester-io-libraries" --username "{SOME_GITHUB_USERNAME}" --password "{SOME_PAT_WITH_PACKAGES_READ_PERMISSIONS}"`
+
+## Actions
+Workflows need the service-account PAT secrets. Because free organizations can't have organization-wide secrets, we need to add them to each repository that want's to restore. 
+
+### Add Repository Secrets
+```bash
+printf '%s\n' '{SOME_PAT_WITH_PACKAGES_READ_PERMISSIONS}' '{SOME_GITHUB_USERNAME}' | gh secret set NUGET_RESTORE_TOKEN -R {ORGANIZATION_NAME}/{REPO_NAME} --body - && gh secret set NUGET_RESTORE_USERNAME -R {ORGANIZATION_NAME}/{REPO_NAME} --body -
+```
+e.g.
+```
+printf '%s\n' 'ghp_K...' 'teun.kooijman+silvester-io@gmail.com' | gh secret set NUGET_RESTORE_TOKEN -R silvester-io-libraries/library-dotnet-client-one-password --body - && gh secret set NUGET_RESTORE_USERNAME -R silvester-io-libraries/library-dotnet-client-one-password --body -
+```
+
+### Verify Repository Has Secret
+To check if the repository alreayd has it:
+`gh secret list -R {ORGANIZTION_NAME}/{REPO_NAME} | grep NUGET_RESTORE`
+e.g.
+`gh secret list -R silvester-io-libraries/library-dotnet-client-one-password | grep NUGET_RESTORE`
