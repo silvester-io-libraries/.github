@@ -7,8 +7,10 @@ Workflows need the service-account PAT secrets. Because free organizations can't
 ##### Add Repository Secrets
 ```bash
 gh secret set NUGET_RESTORE_TOKEN -R silvester-io-libraries/library-dotnet-client-one-password --body "ghp_K..."
-gh secret set NUGET_RESTORE_USERNAME -R silvester-io-libraries/library-dotnet-client-one-password --body "ghp_K..."
+gh secret set NUGET_RESTORE_USERNAME -R silvester-io-libraries/library-dotnet-client-one-password --body "teun.kooijman+silvester-io@gmail.com"
 ```
+
+The credentials can be found in vault `Silvester IO` under `github.credentials.service-account.nuget-restore-token`.
 
 ##### Verify Repository Has Secret
 To check if the repository alreayd has it:  
